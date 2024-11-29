@@ -13,6 +13,12 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+    - name: kube-config
+      mountPath: /home/jenkins/.kube
+  volumes:
+  - name: kube-config
+    emptyDir: {}
 """
         }
     }
@@ -30,10 +36,11 @@ spec:
 
         stage('Setup Kubernetes Context') {
             steps {
-                script {
-                    withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG_FILE')]) {
-                        sh 'mkdir -p /root/.kube'
-                        sh 'cp $KUBECONFIG_FILE /root/.kube/config'
+                container('helm-kubectl') {
+                    script {
+                        withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG_FILE')]) {
+                            sh 'cp $KUBECONFIG_FILE /home/jenkins/.kube/config'
+                        }
                     }
                 }
             }
@@ -55,7 +62,9 @@ spec:
 
     post {
         always {
-            sh 'rm -f /root/.kube/config'
+            container('helm-kubectl') {
+                sh 'rm -f /home/jenkins/.kube/config'
+            }
         }
     }
 }
