@@ -1,6 +1,7 @@
 pipeline {
     agent {
         kubernetes {
+            cloud 'kubernetes'
             label 'helm-kubectl'
             defaultContainer 'jnlp'
             yaml """
