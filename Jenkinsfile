@@ -54,6 +54,7 @@ spec:
                         sh 'kubectl create namespace demo-metrics || true'
                         sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
                         sh 'helm repo update'
+                        sh ' helm list -n jenkins'
                         sh 'helm upgrade --install demo-prometheus bitnami/kube-prometheus -n demo-metrics'
                     }
                 }
