@@ -16,6 +16,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: env.KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG_FILE')]) {
+                        sh 'mkdir -p $HOME/.kube'
                         sh 'cp $KUBECONFIG_FILE $HOME/.kube/config'
                     }
                 }
