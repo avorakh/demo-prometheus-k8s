@@ -9,17 +9,10 @@ kind: Pod
 spec:
   containers:
   - name: helm-kubectl
-    image: lachlanevenson/k8s-helm:latest
+    image: alpine/helm:3.7.1
     command:
     - cat
     tty: true
-    volumeMounts:
-    - name: kube-config
-      mountPath: /root/.kube
-  volumes:
-  - name: kube-config
-    secret:
-      secretName: k8s-config
 """
         }
     }
