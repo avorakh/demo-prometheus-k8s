@@ -10,7 +10,7 @@ kind: Pod
 spec:
   containers:
   - name: helm-kubectl
-    image: alpine/helm:3.7.1
+    image: lachlanevenson/k8s-helm:latest
     command:
     - cat
     tty: true
