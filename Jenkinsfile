@@ -12,6 +12,26 @@ pipeline {
             }
         }
 
+        stage('Install Tools') {
+            steps {
+                script {
+                    sh '''
+                    if ! command -v kubectl &> /dev/null; then
+                        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+                        chmod +x ./kubectl
+                        mv ./kubectl /usr/local/bin/kubectl
+                    fi
+                    '''
+
+                    sh '''
+                    if ! command -v helm &> /dev/null; then
+                        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+                    fi
+                    '''
+                }
+            }
+        }
+
         stage('Setup Kubernetes Context') {
             steps {
                 script {
