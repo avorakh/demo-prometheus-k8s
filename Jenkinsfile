@@ -33,7 +33,6 @@ spec:
                         sh 'helm upgrade --install demo-prometheus bitnami/kube-prometheus -n demo-metrics'
                 }
             }
-            }
         }
     }
 }
