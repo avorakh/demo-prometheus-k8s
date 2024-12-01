@@ -95,6 +95,22 @@ Please use [Bitnami Prometheus Helm Chart README](https://github.com/bitnami/cha
    ```
 
 ---
+## Jenkins Pipeline Configuration
+
+### Prerequisites
+1. Kubernetes Cluster: The Jenkins instance should have access to the Kubernetes cluster.
+> Please use the ['k8s-jenkins-helm'](https://github.com/avorakh/k8s-jenkins-helm/tree/task-7) repository to create cluster. 
+2. Jenkins Configuration:
+- The jenkins service account should have sufficient permissions in the cluster. PLease use the updated service account. [Link](https://github.com/avorakh/k8s-jenkins-helm/blob/task-7/jenkins-ci/templates/serviceaccount.yaml)
+- [Slack Notification plugin](https://plugins.jenkins.io/slack/) should be installed.  Slack credentials (SLACK_CICD_CHANNEL and SLACK_TOKEN) must be set up in Jenkins.
+
+### Add Pipeline to Jenkins
+
+1. Navigate to Jenkins Dashboard.
+2. Create a new multibranch pipeline project.
+3. Link the repository containing the `Jenkinsfile`.
+
+---
 
 ## Metrics Collection using Prometheus
 
